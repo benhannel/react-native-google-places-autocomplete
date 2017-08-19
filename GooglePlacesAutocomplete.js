@@ -474,6 +474,11 @@ const GooglePlacesAutocomplete = React.createClass({
               var results = [];
               if (this.props.nearbyPlacesAPI === 'GoogleReverseGeocoding') {
                 results = this._filterResultsByTypes(responseJSON, this.props.filterReverseGeocodingByTypes);
+                if (this.props.reverseGeocodeReturnFirst) {
+                  const geocode = results.length > 0 ? results[0] : responseJSON.results[0];
+                  this.props.onPress(geocode, geocode);
+                  return;
+                }
               } else {
                 results = responseJSON.results;
               }
